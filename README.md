@@ -1,66 +1,106 @@
-## Foundry
+# Solidity Smart Contract Assignment: LotteryGame
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## Overview
 
-Foundry consists of:
+In this assignment, you will implement a simple Ethereum-based lottery game where players can register, make guesses, and potentially win ETH prizes. This exercise will help you practice Solidity development fundamentals including:
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+- State variables and data structures
+- Function implementation
+- Event handling
+- Basic randomness generation
+- Testing with Foundry
 
-## Documentation
+## Project Structure
 
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
+```
+lottery-game/
+├── src/
+│   └── LotteryGame.sol       # Main contract implementation
+└── test/
+    └── LotteryGame.t.sol     # Foundry tests
 ```
 
-### Test
+## Assignment Tasks
 
-```shell
-$ forge test
+### 1. Implement the LotteryGame Contract
+
+**Clone the Repository:**
+- Clone this repository to your local machine:
+    ```
+     git clone <repository-url>
+     ```
+
+- Move into the project directory:
+    ```
+    cd <repository-name>
+    ```
+
+You need to complete the implementation of the `LotteryGame.sol` contract by filling in all the TODOs:
+
+- Declare state variables for tracking player information, prizes, and winners
+- Implement the event declarations
+- Complete the `register()` function to allow players to join the game
+- Implement the `guessNumber()` function for players to make guesses
+- Complete the `distributePrizes()` function to handle prize distribution
+- Implement the `getPrevWinners()` function to view previous winners
+
+### 2. Fix the Test File
+
+- Rename all instances of `SampleGame` to `LotteryGame` in the test file
+- Ensure the import path correctly points to your implementation
+- If needed, implement any additional test cases to ensure full coverage
+
+## Game Rules
+
+1. Players must stake exactly 0.02 ETH to register
+2. Each player can make up to 2 guesses
+3. Valid guesses are numbers between 1 and 9
+4. Players who guess correctly are added to the winners list
+5. Prizes are distributed equally among all winners
+6. After distribution, the game state is reset for a new round
+
+## Implementation Requirements
+
+### LotteryGame.sol
+
+Your implementation should include:
+
+- A `Player` struct with `attempts` and `active` properties
+- Mappings and arrays to track player information and game state
+- Events for important game actions
+- Functions for registration, guessing, and prize distribution
+- A simple random number generator
+
+### Important Notes
+
+- The `_generateRandomNumber()` function is already provided
+- This is a simplified implementation that uses block properties for randomness
+- For a production environment, a more secure random number generator would be required
+
+## Testing
+
+Run the tests using Foundry:
+
+```bash
+forge test
 ```
 
-### Format
+Ensure all tests pass before submitting your assignment. The tests verify that:
 
-```shell
-$ forge fmt
-```
+1. Players can register with the correct amount
+2. Registration fails with incorrect amounts
+3. Guesses work within valid ranges
+4. Unregistered players cannot make guesses
+5. Players are limited to two attempts
+6. Prizes cannot be distributed when there are no winners
 
-### Gas Snapshots
+## Evaluation Criteria
 
-```shell
-$ forge snapshot
-```
+Your implementation will be evaluated based on:
 
-### Anvil
+1. **Correctness**: All functions work as intended and pass the provided tests
+2. **Code Quality**: Clean, well-documented, and efficient code
+3. **Security**: Proper validation and error handling
+4. **Gas Efficiency**: Optimized operations where possible
 
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+## Hints
